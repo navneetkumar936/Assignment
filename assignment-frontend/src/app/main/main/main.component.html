@@ -1,0 +1,38 @@
+<div class="header-wrapper">
+  <section>
+    <div class="container-fluid">
+      <div class="header-inner">
+        <div class="row">
+          <div class="col-md-2 col-4">
+            <div class="logo-wrapper">
+              <a href="javascript:void(0);">
+                <img src="assets/images/logo.png" alt="Tooprak" class="img-fluid">
+              </a>
+            </div>
+          </div>
+          <div class="col-md-10 col-8">
+            <div class="upper-menu">
+              <ul>
+                <li class="nav-item">
+                  <a routerLink="/"><button class="btn btn-md btn-success"><i class="fa fa-lock" aria-hidden="true"></i> Sign In</button></a>
+                </li>
+                <li class="nav-item">
+                  <a routerLink="/register"><button class="btn btn-md btn-warning"><i class="fa fa-lock" aria-hidden="true"></i> Sign up</button></a>
+                </li>
+              </ul>
+              <ul>
+                <li class="nav-item">
+                  <p>Hi, Vijay Kumar </p>
+                </li>
+                <li class="nav-item">
+                  <a title="Logout" class="logout nav-link" (click)="logOut()"><i class="fa fa-power-off" aria-hidden="true"></i></a>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+<router-outlet></router-outlet>

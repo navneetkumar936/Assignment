@@ -3,6 +3,7 @@ const mongoose = require('mongoose');
 const Joi = require('joi');
 Joi.objectId = require('joi-objectid')(Joi);
 const app = express();
+const cors = require('cors');
 var users = require('./routes/users');
 var job_posts = require('./routes/job-posts');
 
@@ -12,6 +13,8 @@ mongoose.connect('mongodb://localhost/jobplatform',{ useNewUrlParser: true, useU
 
 mongoose.set('useFindAndModify', false);
 mongoose.set('useCreateIndex', true);
+
+app.use(cors());
 
 app.use(express.json());
 

@@ -1,0 +1,40 @@
+
+<section class="adminAuth-wrapper">
+  <div class="row">
+    <div class="col-12">
+      <div class="adminAuth-inner white-box">
+        <div class="page-heading">
+          <h3>SIGN IN</h3>
+        </div>
+        <form [formGroup]="loginForm" (ngSubmit)="submit(loginForm.value)">
+          <div class="form-group">
+            <label>Sign In :</label>
+            <input type="text" name="email" formControlName="email"
+              placeholder="Enter your email, national id or phone number" class="form-control">
+            <div class="errorClass danger"
+              *ngIf="loginForm.get('email')?.errors && loginForm.get('email')?.invalid && (loginForm.get('email')?.touched || loginForm.get('email')?.dirty)">
+              <span *ngIf="loginForm.get('email')?.errors?.required">Please Enter email</span>
+              <span *ngIf="loginForm.get('email')?.errors?.pattern">Enter Valid Email</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Password :</label>
+            <input type="password" name="password" formControlName="password"
+              placeholder="Enter a strong password." class="form-control">
+            <div class="errorClass"
+              *ngIf="loginForm.get('password')?.errors && loginForm.get('password')?.invalid && (loginForm.get('password')?.touched || loginForm.get('password')?.dirty)">
+              <span *ngIf="loginForm.get('password')?.errors?.required">Please Enter password</span>
+            </div>
+          </div>
+          <div class="errorClass" *ngIf="serverError">
+            <span>{{serverError}}</span>
+          </div>
+          <div class="form-group text-center">
+            <button type="submit" *ngIf="!sending" class="btn btn-success sbmt" [disabled]="loginForm.invalid" [style.cursor]="!loginForm.valid?'not-allowed':'pointer'">Sign In</button>
+            <button *ngIf="sending" class="btn btn-success sbmt"> <i class="fa fa-circle-o-notch fa-spin"></i></button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>
