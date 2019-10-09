@@ -1,0 +1,13 @@
+<aside class="left-part">
+  <div class="menu-wrapper">
+    <div class="menu-inner">
+      <nav class="navbar">
+        <ul class="nav navbar-nav">
+          <li *ngIf="userDetails.isCandidate"><a href="javascript:void(0);" routerLink="/dashboard/apply">Apply Jobs</a></li>
+          <li *ngIf="!userDetails.isCandidate"><a href="javascript:void(0);" routerLink="/dashboard/post">Post Jobs</a></li>
+          <li *ngIf="!userDetails.isCandidate"><a href="javascript:void(0);" routerLink="/dashboard/applied">Applicants</a></li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</aside>

@@ -1,3 +1,61 @@
-<p>
-  register works!
-</p>
+<section class="adminAuth-wrapper">
+  <div class="row">
+    <div class="col-12">
+      <div class="adminAuth-inner white-box">
+        <div class="page-heading">
+          <h3>SIGN UP</h3>
+        </div>
+        <form [formGroup]="registerForm" (ngSubmit)="submit(registerForm.value)">
+          <div class="form-group">
+            <label>Name :</label>
+            <input type="text" name="name" formControlName="name" placeholder="Enter your name" class="form-control">
+            <div class="errorClass" *ngIf="registerForm.get('name')?.errors && registerForm.get('name')?.invalid && (registerForm.get('name')?.touched || registerForm.get('name')?.dirty)">
+              <span *ngIf="registerForm.get('name')?.errors?.required">Please Enter name</span>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Email :</label>
+            <input type="text" name="email" formControlName="email" placeholder="Enter your email" class="form-control">
+            <div class="errorClass" *ngIf="registerForm.get('email')?.errors && registerForm.get('email')?.invalid && (registerForm.get('email')?.touched || registerForm.get('email')?.dirty)">
+              <span *ngIf="registerForm.get('email')?.errors?.required">Please Enter email</span>
+              <span *ngIf="registerForm.get('email')?.errors?.pattern">Enter Valid Email</span>
+            </div>
+          </div>
+          <ng-container formGroupName="passwords">
+            <div class="form-group">
+              <label>Password :</label>
+              <input type="password" name="password" formControlName="password" placeholder="Enter a strong password." class="form-control">
+              <div class="errorClass" *ngIf="registerForm.get('passwords').get('password')?.errors && registerForm.get('passwords').get('password')?.invalid && (registerForm.get('passwords').get('password')?.touched || registerForm.get('passwords').get('password')?.dirty)">
+                <span *ngIf="registerForm.get('passwords').get('password')?.errors?.required">Please Enter password</span>
+                <span *ngIf="registerForm.get('passwords').get('password')?.errors?.minlength">Password must be atleast 8 digit long </span>
+              </div>
+            </div>
+            <div class="form-group">
+              <label>Confirm Password :</label>
+              <input type="password" name="password" formControlName="confirmPassword" placeholder="Confirm password." class="form-control">
+              <div class="errorClass" *ngIf="registerForm.get('passwords').get('confirmPassword')?.errors && registerForm.get('passwords').get('confirmPassword')?.invalid && (registerForm.get('passwords').get('confirmPassword')?.touched || registerForm.get('passwords').get('confirmPassword')?.dirty)">
+                <span *ngIf="registerForm.get('passwords').get('confirmPassword')?.errors?.required">Please Enter confirm password</span>
+                <span *ngIf="registerForm.get('passwords').get('confirmPassword')?.errors?.minlength">Password must be atleast 8 digit long </span>
+              </div>
+            </div>
+          </ng-container>
+          <div class="errorClass" *ngIf="registerForm.get('passwords').get('confirmPassword').value && registerForm.get('passwords').get('password').value && registerForm.get('passwords')?.errors">
+            <span *ngIf="registerForm.get('passwords')?.errors?.notSame">Passwords are not same</span>
+          </div>
+          <div class="form-group frgtpwd">
+            <input type="checkbox" class="checkbox" formControlName="isCandidate"><span class="">Register as Candidate.</span>
+          </div>
+          <div class="errorClass" *ngIf="serverError">
+            <span>{{serverError}}</span>
+          </div>
+          <div class="form-group text-center">
+            <button type="submit" *ngIf="!sending" class="btn btn-success sbmt" [disabled]="registerForm.invalid" [style.cursor]="!registerForm.valid?'not-allowed':'pointer'">Sign Up</button>
+            <button *ngIf="sending" class="btn btn-success sbmt">
+              <i class="fa fa-circle-o-notch fa-spin"></i>
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

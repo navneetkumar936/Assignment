@@ -3,7 +3,7 @@ const urls = {
     "login" : "users/login",
     "register" : "users/register",
     "post" : "post",
-    "apply" : "user/apply",
+    "apply" : "users/apply",
     "applicants" : "users/applicants"
 }
 

@@ -4,31 +4,44 @@ import { ApplyjobsComponent } from './applyjobs/applyjobs.component';
 import { AppliedcandidatesComponent } from './appliedcandidates/appliedcandidates.component';
 import { PostjobComponent } from './postjob/postjob.component';
 import { DashboardComponent } from './dashboard/dashboard.component';
+import { ChildUserGuard } from './childAuthGuard';
 
-const routes : Routes = [
+const routes: Routes = [
     {
-        path : '',
-        component : DashboardComponent,
-        children : [
+        path: '',
+        component: DashboardComponent,
+        children: [
             {
-                path : 'post',
-                component : PostjobComponent
+                path: 'post',
+                canActivate: [ChildUserGuard],
+                data: {
+                    page: false
+                },
+                component: PostjobComponent,
             },
             {
-                path : 'apply',
-                component : ApplyjobsComponent
+                path: 'apply',
+                canActivate: [ChildUserGuard],
+                data: {
+                    page: true
+                },
+                component: ApplyjobsComponent
             },
             {
-                path : 'applied',
-                component : AppliedcandidatesComponent
+                path: 'applied',
+                canActivate: [ChildUserGuard],
+                data: {
+                    page: false
+                },
+                component: AppliedcandidatesComponent
             }
         ]
     }
 ]
 
 @NgModule({
-    imports : [RouterModule.forChild(routes)],
-    exports : [RouterModule]
+    imports: [RouterModule.forChild(routes)],
+    exports: [RouterModule]
 })
 
 export class DashboardRoutingModule { }

@@ -28,6 +28,22 @@ export class DataService {
     register(payload){
         return this.http.post(`${urls.baseurl}${urls.register}`, payload, this.setHeader());
     }
+
+    list(){
+        return this.http.get(`${urls.baseurl}${urls.post}`, this.setHeader())
+    }
+
+    apply(payload){
+        return this.http.post(`${urls.baseurl}${urls.apply}`, payload, this.setHeader());
+    }
+
+    postJob(payload){
+        return this.http.post(`${urls.baseurl}${urls.post}`,payload, this.setHeader());
+    }
+
+    applicants(){
+        return this.http.get(`${urls.baseurl}${urls.applicants}`, this.setHeader());        
+    }
 }
 
 

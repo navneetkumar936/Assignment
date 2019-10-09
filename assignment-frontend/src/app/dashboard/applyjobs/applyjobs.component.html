@@ -1,3 +1,30 @@
-<p>
-  applyjobs works!
-</p>
+  <div class="right-part">
+    <div class="page-heading">
+      <h4>All Jobs</h4>
+    </div>
+    <div class="text-center" *ngIf="!jobArr.length">
+      <span class="nojob"> No Job Available </span>
+    </div>
+    <div class="table-responsive" *ngIf="jobArr.length">
+      <table class="table table-striped table-bordered">
+        <thead>
+          <tr>
+            <th>Job Name</th>
+            <th>Skills</th>
+            <th>Experience</th>
+            <th>Apply</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let job of jobArr">
+            <td>{{job.jobName}}</td>
+            <td>{{job.skill}}</td>
+            <td>{{job.experience}}</td>
+            <td>
+              <button class="btn btn-success sbmt" (click)="apply(job)">Apply</button>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>

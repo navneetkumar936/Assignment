@@ -1,3 +1,35 @@
-<p>
-  postjob works!
-</p>
+<div class="right-part">
+  <div class="page-heading">
+    <h4>Post Jobs</h4>
+  </div>
+  <form (ngSubmit)="postJob(jobForm.value)" [formGroup]="jobForm">
+    <div class="form-group">
+      <label>Job Name </label>
+      <input type="text" name="jobname" formControlName="jobName" placeholder="Enter name of job" class="form-control">
+      <div class="errorClass danger" *ngIf="jobForm.get('jobName')?.errors && jobForm.get('jobName')?.invalid && (jobForm.get('jobName')?.touched || jobForm.get('jobName')?.dirty)">
+        <span *ngIf="jobForm.get('jobName')?.errors?.required">Please enter job name</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Skill </label>
+      <input type="text" name="skill" formControlName="skill" placeholder="Enter skills" class="form-control">
+      <div class="errorClass danger" *ngIf="jobForm.get('skill')?.errors && jobForm.get('skill')?.invalid && (jobForm.get('skill')?.touched || jobForm.get('skill')?.dirty)">
+        <span *ngIf="jobForm.get('skill')?.errors?.required">Please enter skill</span>
+      </div>
+    </div>
+    <div class="form-group">
+      <label>Experience </label>
+      <select formControlName="experience" class="form-control">
+        <option disabled value=null>Select Experience in years</option>
+        <option *ngFor="let exp of experienceArr">{{exp}}</option>
+      </select>
+      <div class="errorClass danger" *ngIf="jobForm.get('experience')?.errors && jobForm.get('experience')?.invalid && (jobForm.get('experience')?.touched || jobForm.get('experience')?.dirty)">
+        <span *ngIf="jobForm.get('experience')?.errors?.required">Select Experience</span>
+      </div>
+    </div>
+    <div class="form-group text-center">
+        <button type="submit" *ngIf="!sending" class="btn btn-success sbmt" [disabled]="jobForm.invalid" [style.cursor]="!jobForm.valid?'not-allowed':'pointer'">Post Job</button>
+        <button *ngIf="sending" class="btn btn-success sbmt"> <i class="fa fa-circle-o-notch fa-spin"></i></button>
+      </div>
+  </form>
+</div>

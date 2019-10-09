@@ -5,6 +5,7 @@ var _ = require('lodash');
 const bcrypt = require('bcrypt');
 const jwt = require('jsonwebtoken');
 const { User, validate } = require('../models/users');
+const { Post } = require('../models/job-posts');
 
 function genarateAuthToken(user) {
     const token = jwt.sign({ _id: user._id, isCandidate: user.isCandidate }, 'jobplatformsecretkey');
@@ -21,9 +22,11 @@ router.post('/apply', auth, async (req, res) => {
         let user = await User.findById(req.user._id);
         if (!user) return res.status(400).send('User does not exist');
 
-        let job = await User.findOne({ _id: req.user._id , appliedJobs: { $elemMatch: { jobId: req.body.jobId } } });
-        
-        if (job) return res.status(404).send('Applied Already');
+        let job = await Post.findById(req.body.jobId);
+        if(!job) return res.status(404).send('Job Not Found');
+
+        let jobApplied = await User.findOne({ _id: req.user._id , appliedJobs: { $elemMatch: { jobId: req.body.jobId } } });
+        if (jobApplied) return res.status(404).send('Applied Already');
 
         await User.findOneAndUpdate({
             _id: req.user._id
@@ -32,7 +35,7 @@ router.post('/apply', auth, async (req, res) => {
                 $push: {
                     appliedJobs: {
                         jobId: req.body.jobId,
-                        recruiterId: req.body.recruiterId
+                        recruiterId: job.recruiterId
                     }
                 }
             },
@@ -41,7 +44,7 @@ router.post('/apply', auth, async (req, res) => {
                 new: true
             }
         )
-        res.status(200).send('Applied Successfully');
+        res.status(200).send({msg : 'Applied Successfully'});
     }
 })
 
@@ -98,7 +101,7 @@ router.post('/register', async (req, res) => {
         user.password = await bcrypt.hash(user.password, salt);
         await user.save();
 
-        return res.send('Registration Successful');
+        return res.status(200).send({msg : 'Registration Successful'});
 
     }
 })

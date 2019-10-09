@@ -2,13 +2,12 @@ const auth = require('../middlewares/auth');
 const express = require('express');
 const router = express.Router();
 var _ = require('lodash');
-const bcrypt = require('bcrypt');
 const { Post, validate } = require('../models/job-posts');
 
-// router.get('/', auth, async (req, res) => {
-//     const user = await User.findById(req.user._id).select('-password');
-//     res.send(user);
-// })
+router.get('/', auth, async (req, res) => {
+    const post = await Post.find();
+    res.status(200).send(post);
+})
 
 router.post('/', auth, async (req, res) => {
     if(req.body){
@@ -20,7 +19,7 @@ router.post('/', auth, async (req, res) => {
         let post = new Post(_.mergeWith(_.pick(req.body, ['jobName', 'skill', 'experience']), { recruiterId : req.user._id })); //lodash library used for getting specific field out of objects
         await post.save();
 
-        return res.send('Job Created Successfully');
+        return res.send({msg : 'Job Created Successfully'});
     }
 })
 
