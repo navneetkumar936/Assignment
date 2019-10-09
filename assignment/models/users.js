@@ -21,7 +21,11 @@ const userSchema = new mongoose.Schema({
     isCandidate:{
         type:Boolean,
         required:true
-    }
+    },
+    appliedJobs:[{
+        jobId:String,
+        recruiterId:String
+    }]
 })
 
 const User = mongoose.model('User', userSchema);
